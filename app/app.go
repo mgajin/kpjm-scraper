@@ -16,12 +16,14 @@ var (
 	categories, ads, data chan interface{}
 )
 
+// App struct is used for initialization.
 type App struct {
 	CrawlerService     *kpjm.CrawlingService
 	CrawlerControllers []*crawlerService.Controller
 	StorageControllers []*handler.Controller
 }
 
+// NewApp initializes app.
 func NewApp() *App {
 
 	// Message channels
@@ -68,6 +70,7 @@ func NewApp() *App {
 	}
 }
 
+// FetchCategories fetches all categories.
 func (a *App) FetchCategories() {
 	response, err := a.CrawlerService.ScrapeCategories()
 
@@ -75,7 +78,7 @@ func (a *App) FetchCategories() {
 		log.Fatal(err)
 	}
 
-	for _, category := range *response {
+	for _, category := range response {
 		// if i == 2 {
 		// 	break
 		// }

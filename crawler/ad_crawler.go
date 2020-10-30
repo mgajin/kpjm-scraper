@@ -24,9 +24,9 @@ func NewAdCrawler(config *Config) mq.MessageHandler {
 // HandleMessage is AdCrawler's implementation of MessageHandler interface.
 // It is used for scraping ad from website and sends it through channel to storage.
 func (ac *AdCrawler) HandleMessage(message mq.Message) {
-	id := message.(int)
+	id := message.(*int)
 
-	ad, err := ac.Service.ScrapeAd(id)
+	ad, err := ac.Service.ScrapeAd(*id)
 	if err != nil {
 		fmt.Println(err)
 		return

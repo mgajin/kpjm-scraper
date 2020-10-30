@@ -35,7 +35,7 @@ func (cc *CategoryCrawler) HandleMessage(message mq.Message) {
 		}
 		pages = res.Pages
 
-		for _, ad := range *res.Ads {
+		for _, ad := range res.Ads {
 			cc.SendChan <- ad
 			count++
 		}

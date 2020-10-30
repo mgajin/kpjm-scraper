@@ -1,11 +1,9 @@
 package mq
 
+// Message type is used for message handlers.
 type Message = interface{}
 
-type Consumer interface {
-	Consume() (<-chan Message, error)
-}
-
+// MessageHandler interface
 type MessageHandler interface {
 	HandleMessage(Message)
 }

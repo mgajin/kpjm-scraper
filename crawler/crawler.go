@@ -5,6 +5,7 @@ import (
 	"github.com/mgajin/kpjm-scraper/kpjm"
 )
 
+// Constructor is used for creating crawlers.
 type Constructor func(config *Config) mq.MessageHandler
 
 // Crawler struct

@@ -47,15 +47,15 @@ func AdFromJSON(data []byte, parser *fastjson.Parser) (*Ad, error) {
 
 // IDsFromJSON extracts Ads from JSON
 // Returns pointer to slice of ad ID's
-func IDsFromJSON(v *fastjson.Value) *[]AdID {
-	var ads []AdID
+func IDsFromJSON(v *fastjson.Value) []*AdID {
+	var ads []*AdID
 
 	for _, ad := range v.GetArray("ads") {
 		id := ad.GetInt("ad_id")
-		ads = append(ads, id)
+		ads = append(ads, &id)
 	}
 
-	return &ads
+	return ads
 }
 
 // newAd extracts Ad data from JSON

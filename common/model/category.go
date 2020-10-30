@@ -11,7 +11,7 @@ type Category struct {
 	Parent  int    `json:"parent"`
 	Name    string `json:"name"`
 	AdKind  string `json:"ad_kind"`
-	Ads     *[]AdID
+	Ads     []*AdID
 }
 
 // CategoryFilter struct holds information for filtered ads.
@@ -20,26 +20,26 @@ type CategoryFilter struct {
 	Page  int `json:"page"`
 	Pages int `json:"pages"`
 	Total int `json:"total"`
-	Ads   *[]AdID
+	Ads   []*AdID
 }
 
 // CategoriesFromJSON parses categories from JSON.
 // Returns pointer to slice of categories and error.
-func CategoriesFromJSON(data []byte, parser *fastjson.Parser) (*[]Category, error) {
+func CategoriesFromJSON(data []byte, parser *fastjson.Parser) ([]*Category, error) {
 	v, err := parser.ParseBytes(data)
 	if err != nil {
 		return nil, err
 	}
 
-	var categories []Category
+	var categories []*Category
 
 	for _, category := range v.GetArray("categories") {
-		categories = append(categories, *newCategory(category))
+		categories = append(categories, newCategory(category))
 	}
 
-	categories = *filterCategories(&categories)
+	categories = filterCategories(categories)
 
-	return &categories, nil
+	return categories, nil
 }
 
 // CategoryFilterFromJSON parses filtered ads from JSON.
@@ -57,16 +57,16 @@ func CategoryFilterFromJSON(data []byte, parser *fastjson.Parser) (*CategoryFilt
 
 // filterCategories returns only categories from given slice.
 // Returns pointer to slice of categories.
-func filterCategories(all *[]Category) *[]Category {
-	var categories []Category
+func filterCategories(all []*Category) []*Category {
+	var categories []*Category
 
-	for _, category := range *all {
+	for _, category := range all {
 		if category.Parent == 0 {
 			categories = append(categories, category)
 		}
 	}
 
-	return &categories
+	return categories
 }
 
 // newCategory crates new Category from JSON.

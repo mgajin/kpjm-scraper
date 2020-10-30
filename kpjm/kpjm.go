@@ -25,7 +25,7 @@ func NewCrawlingService(kc *client.KpjmClient, pool *parser.Pool) *CrawlingServi
 
 // ScrapeCategories fetches all categories and groups.
 // Returns pointer slice of categories / groups and error.
-func (service *CrawlingService) ScrapeCategories() (*[]model.Category, error) {
+func (service *CrawlingService) ScrapeCategories() ([]*model.Category, error) {
 	req, err := client.NewRequest("action=categories")
 	if err != nil {
 		return nil, err
